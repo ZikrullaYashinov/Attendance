@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Attendance</string>
+    <string name="point">Point</string>
+    <string name="import_data">Import data</string>
+    <string name="sign_in">Log In</string>
+    <string name="add_new_attendance">Add new attendance</string>
+    <string name="no_description">No description</string>
+    <string name="edit_group_name">Edit group name</string>
+    <string name="group_name">Group name</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="edit_name">Edit name</string>
+    <string name="name_is_empty">Name is empty</string>
+    <string name="please_wait">Please wait</string>
+</resources>

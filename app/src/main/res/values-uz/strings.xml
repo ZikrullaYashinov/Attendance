@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Davomat</string>
+    <string name="point">Baho</string>
+    <string name="import_data">Ma\'lumotlarni kiritish</string>
+    <string name="sign_in">Kirish</string>
+    <string name="add_new_attendance">Yangi davomat qo\'shish</string>
+    <string name="no_description">Izoh mavjud emas</string>
+    <string name="edit_group_name">Gruh nomini tahrirlash</string>
+    <string name="group_name">Gruh nomi</string>
+    <string name="save">Saqlash</string>
+    <string name="cancel">Bekor qilish</string>
+    <string name="edit_name">Tahrirlash</string>
+    <string name="name_is_empty">Guruh nomi bo\'sh</string>
+    <string name="please_wait">Please wait</string>
+</resources>
