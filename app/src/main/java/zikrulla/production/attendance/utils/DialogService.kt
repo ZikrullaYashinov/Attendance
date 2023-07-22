@@ -2,6 +2,7 @@ package zikrulla.production.attendance.utils
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -12,6 +13,9 @@ import android.widget.TextView
 import zikrulla.production.attendance.R
 
 class DialogService {
+
+    private var dialog: Dialog? = null
+
     //    TODO add layout: dialog_set_name.xml
 //    TODO add drawable: bg_dialog.xml, bg_simple1_btn.xml, bg_simple2_btn.xml
 //    TODO add strings:
@@ -55,4 +59,18 @@ class DialogService {
         dialog.show()
     }
 
+    fun setLoadingDialog(context: Context) {
+        dialog = Dialog(context)
+        dialog!!.setContentView(R.layout.dialog_loading)
+        dialog!!.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialog!!.setCancelable(false)
+    }
+
+    fun showLoadingDialog() {
+        dialog?.show()
+    }
+
+    fun dismissLoadingDialog() {
+        dialog?.dismiss()
+    }
 }

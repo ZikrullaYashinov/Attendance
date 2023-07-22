@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -18,6 +19,7 @@ import zikrulla.production.attendance.database.entity.StudentEntity
 import zikrulla.production.attendance.databinding.FragmentGroupBinding
 import zikrulla.production.attendance.model.StudentWithDayStudent
 import zikrulla.production.attendance.model.Students
+import zikrulla.production.attendance.utils.PopupMenuService
 import zikrulla.production.attendance.viewmodel.StudentsViewModel
 import zikrulla.production.attendance.viewmodel.StudentsViewModelFactory
 import java.util.Date
@@ -42,6 +44,7 @@ class GroupFragment : Fragment() {
     private var groupEntity: GroupEntity? = null
     private var attendance: AttendanceEntity? = null
     private var studentEntities: List<StudentEntity>? = null
+    private var popupMenuService: PopupMenuService? = null
     private var isUpdated = false
 
     override fun onCreateView(
@@ -67,17 +70,24 @@ class GroupFragment : Fragment() {
             viewModel.fetchDayStudents(attendance?.id!!)
 
         adapter = StudentWithDayStudentAdapter()
+        adapter.context = requireContext()
         binding.recyclerView.adapter = adapter
 
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            popupMenuService?.dismiss()
+            finish()
+        }
     }
 
     private fun click() {
         adapter.itemClick = {
             Toast.makeText(requireContext(), "${it.studentEntity.name}", Toast.LENGTH_SHORT).show()
         }
-        adapter.itemSelected = { position, i ->
-            val n = if (i == "-") null else i.toInt()
-            viewModel.dayStudents!![position].point = n
+        adapter.itemSelected = { point, position ->
+            viewModel.dayStudents!![position].point = point
+        }
+        adapter.itemSelect = {
+            popupMenuService = it
         }
         adapter.itemChecked = { position, isChecked ->
             viewModel.dayStudents!![position].isHas = isChecked
@@ -127,15 +137,17 @@ class GroupFragment : Fragment() {
                         dayStudentEntity = null
                     )
                 )
-                dayStudentEntities.add(DayStudentEntity(
-                    studentId = studentEntities!![i].id,
-                    attendanceId = null,
-                    point = null,
-                    isHas = false
-                ))
+                dayStudentEntities.add(
+                    DayStudentEntity(
+                        studentId = studentEntities!![i].id,
+                        attendanceId = null,
+                        point = null,
+                        isHas = false
+                    )
+                )
             }
-            viewModel.dayStudents = dayStudentEntities
             adapter.submitList(list)
+            viewModel.dayStudents = dayStudentEntities
         }
     }
 }

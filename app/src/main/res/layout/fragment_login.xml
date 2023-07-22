@@ -17,7 +17,7 @@
             android:layout_marginEnd="@dimen/_8sdp"
             android:layout_width="@dimen/_40sdp"
             android:layout_height="@dimen/_40sdp"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:src="@drawable/ic_attendance" />
 
         <TextView
             android:id="@+id/project_name"

@@ -57,6 +57,8 @@ dependencies {
     implementation 'androidx.room:room-runtime:2.5.2'
     kapt 'androidx.room:room-compiler:2.5.2'
 
+    implementation "com.github.skydoves:powermenu:2.2.4"
+
     implementation 'com.github.MohammadSianaki:Retrofit2-Flow-Call-Adapter:0.2.0'
 
 }

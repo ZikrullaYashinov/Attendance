@@ -12,5 +12,6 @@
     <string name="cancel">Bekor qilish</string>
     <string name="edit_name">Tahrirlash</string>
     <string name="name_is_empty">Guruh nomi bo\'sh</string>
-    <string name="please_wait">Please wait</string>
+    <string name="please_wait">Iltimos kuting…</string>
+    <string name="delete_group">Guruhni o\'chirish</string>
 </resources>

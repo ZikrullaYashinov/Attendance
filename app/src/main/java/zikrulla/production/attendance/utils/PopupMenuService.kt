@@ -10,6 +10,8 @@ import android.widget.PopupWindow
 import zikrulla.production.attendance.model.PopupMenuItem
 
 class PopupMenuService {
+
+    private var popupWindow: PopupWindow? = null
     fun showPopupMenu(
         context: Context,
         view: View?,
@@ -19,20 +21,23 @@ class PopupMenuService {
         val service =
             context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val popupView = service.inflate(layoutId, null)
-        val popupWindow = PopupWindow(
+        popupWindow = PopupWindow(
             popupView,
             ViewGroup.LayoutParams.WRAP_CONTENT,
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
-        popupWindow.isOutsideTouchable = true
-        popupWindow.setBackgroundDrawable(BitmapDrawable())
+        popupWindow!!.isOutsideTouchable = true
+        popupWindow!!.setBackgroundDrawable(BitmapDrawable())
         list.forEach { popupMenuItem ->
-            popupWindow.contentView?.findViewById<LinearLayout>(popupMenuItem.resource)
+            popupWindow!!.contentView?.findViewById<View>(popupMenuItem.resource)
                 ?.setOnClickListener {
                     popupMenuItem.listener.invoke()
-                    popupWindow.dismiss()
+                    popupWindow!!.dismiss()
                 }
         }
-        popupWindow.showAsDropDown(view)
+        popupWindow!!.showAsDropDown(view)
+    }
+    fun dismiss(){
+        popupWindow?.dismiss()
     }
 }

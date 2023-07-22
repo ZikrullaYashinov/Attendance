@@ -37,13 +37,13 @@
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/cancel"
+            android:foreground="?attr/selectableItemBackground"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_5sdp"
             android:layout_weight="1"
             android:background="@drawable/bg_simple2_btn"
             android:fontFamily="@font/inter_medium"
-            android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:text="@string/cancel"
             android:textAllCaps="false"

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
@@ -39,6 +40,7 @@ class AttendanceFragment : Fragment() {
     private lateinit var groupEntity: GroupEntity
     private lateinit var adapter: AttendanceAdapter
     private var students: List<StudentEntity>? = null
+    private var popupMenuService: PopupMenuService? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -87,6 +89,10 @@ class AttendanceFragment : Fragment() {
             Navigation.findNavController(binding.root)
                 .navigate(R.id.action_attendanceFragment_to_groupFragment, bundle)
         }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            popupMenuService?.dismiss()
+            Navigation.findNavController(binding.root).popBackStack()
+        }
     }
 
     private fun change() {
@@ -99,7 +105,8 @@ class AttendanceFragment : Fragment() {
     }
 
     private fun showPopupMenu(view: View?) {
-        PopupMenuService().showPopupMenu(requireContext(), view, R.layout.menu_attendance, listOf(
+        popupMenuService = PopupMenuService()
+        popupMenuService?.showPopupMenu(requireContext(), view, R.layout.menu_attendance, listOf(
             PopupMenuItem(R.id.add_box) {
                 val bundle = Bundle()
                 bundle.putSerializable("group", groupEntity)
@@ -110,6 +117,7 @@ class AttendanceFragment : Fragment() {
             PopupMenuItem(R.id.edit_group_name) {
                 DialogService().showEditDialog(
                     context = requireContext(),
+                    name = groupEntity.name!!,
                     saveClick = {
                         if (isNotEmpty(it)) {
                             groupEntity.name = it
@@ -120,6 +128,9 @@ class AttendanceFragment : Fragment() {
                         return@showEditDialog false
                     }
                 )
+            },
+            PopupMenuItem(R.id.delete_group) {
+
             }
         ))
     }
@@ -131,4 +142,5 @@ class AttendanceFragment : Fragment() {
             false
         } else true
     }
+
 }
